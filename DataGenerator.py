@@ -56,14 +56,16 @@ class RandomDataGenerator:
                :return: dict
                """
         list_of_data = []
-        for _ in range(0, length):
-            data_dict = {}
-            data = RandomDataGenerator.__get_data_from_api()
-            data_dict["name"] = data["name"]
-            data_dict["address"] = data["address"]
-            data_dict["age"] = randint(0, 99)
-            list_of_data.append(data_dict)
-        return list_of_data
+        if length < 10:
+            for _ in range(0, length):
+                data_dict = {}
+                data = RandomDataGenerator.__get_data_from_api()
+                data_dict["name"] = data["name"]
+                data_dict["address"] = data["address"]
+                data_dict["age"] = randint(0, 99)
+                list_of_data.append(data_dict)
+            return list_of_data
+        raise ValueError("The length should be greater than 0 and less than 10")
 
     @staticmethod
     def _get_data(data_type, key, length):
@@ -81,7 +83,7 @@ class RandomDataGenerator:
                     else:
                         data.add(RandomDataGenerator.__get_data_from_api()[key])
                 return data
-            raise ValueError("The length should be greater than zero and less than ten")
+            raise ValueError("The length should be greater than 0 and less than 10")
         raise ValueError("Invalid data_type it should be either list or set")
 
 
